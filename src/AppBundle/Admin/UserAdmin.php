@@ -9,7 +9,9 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class UserAdmin extends AbstractAdmin
 {
@@ -21,10 +23,23 @@ class UserAdmin extends AbstractAdmin
 	protected function configureShowFields(ShowMapper $showMapper)
 	{
 		$showMapper
+			->with('User', array(
+				'class' => 'col-lg-6',
+			))
 			->add('username')
 			->add('email')
 			->add('role')
 			->add('enabled')
+			->end()
+			->with('Profile', array(
+				'class' => 'col-lg-6',
+			))
+			->add('profile.firstName')
+			->add('profile.lastName')
+			->add('profile.birthday')
+			->add('profile.gender')
+			->add('profile.notes')
+			->end()
 		;
 	}
 
@@ -36,7 +51,9 @@ class UserAdmin extends AbstractAdmin
 	protected function configureFormFields(FormMapper $formMapper)
 	{
 		$formMapper
-			->with('General')
+			->with('User', array(
+				'class' => 'col-lg-6',
+			))
 			->add('enabled', null, array('required' => false))
 			->add('username')
 			->add('email')
@@ -46,6 +63,19 @@ class UserAdmin extends AbstractAdmin
 					'Admin' => User::ROLE_ADMIN,
 					'SuperAdmin' => User::ROLE_SUPER_ADMIN,
 				)
+			))
+			->end()
+			->with('Profile', array(
+				'class' => 'col-lg-6',
+			))
+			->add('profile.firstName')
+			->add('profile.lastName')
+			->add('profile.birthday', BirthdayType::class, array(
+
+			))
+			->add('profile.gender')
+			->add('profile.notes', TextareaType::class, array(
+				'required' => false,
 			))
 			->end()
 		;
@@ -62,6 +92,9 @@ class UserAdmin extends AbstractAdmin
 			->addIdentifier('username')
 			->add('email')
 			->add('role')
+			->add('profile.firstName')
+			->add('profile.lastName')
+			->add('profile.gender')
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'show' => array(),
@@ -84,6 +117,9 @@ class UserAdmin extends AbstractAdmin
 			->add('username')
 			->add('email')
 			->add('role')
+			->add('profile.firstName')
+			->add('profile.lastName')
+			->add('profile.gender')
 		;
 	}
 }

@@ -20,6 +20,14 @@ class User extends BaseUser
      */
     protected $id;
 
+	/**
+	 * @var \AppBundle\Entity\Profile
+	 *
+	 * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile", cascade={"PERSIST", "REMOVE", "REFRESH"})
+	 * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+	 */
+    private $profile;
+
     private $roleImportance = array(
     	self::ROLE_SUPER_ADMIN,
 		self::ROLE_ADMIN,
@@ -29,6 +37,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->profile = new Profile();
     }
 
 	/**
@@ -51,5 +60,24 @@ class User extends BaseUser
 	public function setRole($role)
 	{
 		$this->roles = array($role);
+	}
+
+	/**
+	 * @return \AppBundle\Entity\Profile
+	 */
+	public function getProfile()
+	{
+		return $this->profile;
+	}
+
+	/**
+	 * @param \AppBundle\Entity\Profile $profile
+	 *
+	 * @return User
+	 */
+	public function setProfile(Profile $profile)
+	{
+		$this->profile = $profile;
+		return $this;
 	}
 }
