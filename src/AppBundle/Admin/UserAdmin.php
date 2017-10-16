@@ -3,12 +3,14 @@
 namespace AppBundle\Admin;
 
 
+use AppBundle\Entity\Gender;
 use AppBundle\Entity\User;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,7 +30,6 @@ class UserAdmin extends AbstractAdmin
 			))
 			->add('username')
 			->add('email')
-			->add('role')
 			->add('enabled')
 			->end()
 			->with('Profile', array(
@@ -57,25 +58,24 @@ class UserAdmin extends AbstractAdmin
 			->add('enabled', null, array('required' => false))
 			->add('username')
 			->add('email')
-			->add('role', ChoiceType::class, array(
-				'choices' => array(
-					'User' => User::ROLE_DEFAULT,
-					'Admin' => User::ROLE_ADMIN,
-					'SuperAdmin' => User::ROLE_SUPER_ADMIN,
-				)
-			))
 			->end()
 			->with('Profile', array(
 				'class' => 'col-lg-6',
 			))
-			->add('profile.firstName')
-			->add('profile.lastName')
+			->add('profile.firstName', null, array(
+				'required' => true,
+			))
+			->add('profile.lastName', null, array(
+				'required' => true,
+			))
 			->add('profile.birthday', BirthdayType::class, array(
 
 			))
-			->add('profile.gender')
+			->add('profile.gender', EntityType::class, array(
+				'class' => Gender::class,
+			))
 			->add('profile.notes', TextareaType::class, array(
-				'required' => false,
+				'required' => true,
 			))
 			->end()
 		;
@@ -91,10 +91,11 @@ class UserAdmin extends AbstractAdmin
 		$listMapper
 			->addIdentifier('username')
 			->add('email')
-			->add('role')
 			->add('profile.firstName')
 			->add('profile.lastName')
-			->add('profile.gender')
+			->add('profile.gender', EntityType::class, array(
+				'class' => Gender::class,
+			))
 			->add('_action', 'actions', array(
 				'actions' => array(
 					'show' => array(),
@@ -116,7 +117,6 @@ class UserAdmin extends AbstractAdmin
 			->add('enabled')
 			->add('username')
 			->add('email')
-			->add('role')
 			->add('profile.firstName')
 			->add('profile.lastName')
 			->add('profile.gender')
