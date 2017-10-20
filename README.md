@@ -44,7 +44,7 @@ bash reload-db.sh
 OR
 
 ```bash
-bin/console doctrine:database:create
-bin/console doctrine:schema:create
-bin/console doctrine:fixtues:load -n
+.bin/console doctrine:database:create
+.bin/console doctrine:schema:create
+.bin/console doctrine:fixtues:load -n
 ```

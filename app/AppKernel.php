@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
             //Added Dependencies Bundles
             new FOS\UserBundle\FOSUserBundle(),
+
             new Sonata\CoreBundle\SonataCoreBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
