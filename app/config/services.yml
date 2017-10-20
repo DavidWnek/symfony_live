@@ -4,3 +4,9 @@ services:
 #        arguments: [~, AppBundle\Entity\Gender, SonataAdminBundle:CRUD]
 #        tags:
 #            - { name: sonata.admin, manager_type: orm, group: User, label: Gender }
+#
+#    app.admin.profile:
+#        class: AppBundle\Admin\ProfileAdmin
+#        arguments: [~, AppBundle\Entity\Profile, SonataAdminBundle:CRUD]
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: User, label: Profile }
