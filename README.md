@@ -1,18 +1,20 @@
 symfony_starter_kit
 ===================
 
-#Perquisites
+#Prerequisites
+
+* Composer, PHP 7+, MySql/MariaDB/etc..
 
 
 ##Installation Instructions
 
 ```bash
-git clone https://github.com/DavidWnek/symfony_starter_kit.git --depth 1 {project_name}
-cd {project_name}
+git clone https://github.com/DavidWnek/symfony_live.git
+cd symfony_live
 composer install
 ```
 
-###Fillout parameters / use defaults
+###Fill-out parameters / use defaults
 
 
 ##Linux File Permissions
